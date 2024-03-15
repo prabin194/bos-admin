@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('translations', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid')->unique();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('mobile_no');
-            $table->string('email');
+            $table->string('translationable_type');
+            $table->string('translationable_id');
+            $table->index(['translationable_type', 'translationable_id']);
+            $table->string('locale');
+            $table->string('title');
+            $table->longText('description');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('translations');
     }
 };
