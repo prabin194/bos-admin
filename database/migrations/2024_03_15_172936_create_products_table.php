@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->uuid('uid')->unique();
             $table->float('price');
+            $table->foreignUuid('category_id')->nullable();
+            $table->foreign('category_id')->references('uid')->on('categories')->onDelete('Set Null');
             $table->foreignUuid('user_id')->nullable();
             $table->foreign('user_id')->references('uid')->on('users')->onDelete('Set Null');
             $table->softDeletes();
